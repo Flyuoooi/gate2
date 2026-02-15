@@ -86,8 +86,8 @@ _C.MODEL.TEXT.PROXY_LAMBDA_PRE = 0.1  # Design A: lambda reaches this at end of 
 _C.MODEL.TEXT.PROXY_LAMBDA_RAMP_EPOCHS = 30  # <=0 means auto (total_epoch - warmup)
 
 _C.MODEL.TEXT.PROXY_PULL_APPLY= "t1,t2"
-_C.MODEL.TEXT.PROXY_SIM_ON = True  # Design B: similarity matching loss
-_C.MODEL.TEXT.PROXY_SIM_W = 0.5
+_C.MODEL.TEXT.PROXY_SIM_ON = False  # Design B: similarity matching loss
+_C.MODEL.TEXT.PROXY_SIM_W = 1.0
 
 # -----------------------------------------------------------------------------
 # Train settings

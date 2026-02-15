@@ -115,11 +115,13 @@ def make_loss(cfg, num_classes):    # modified by gu
                     if B2 > 1:
                         mask2 = ~torch.eye(B2, dtype=torch.bool, device=Sf.device)
                         SIM_LOSS = F.mse_loss(Sf[mask2], Sp[mask2])
+                        # SIM_LOSS = F.smooth_l1_loss(Sf[mask2], Sp[mask2], beta=1.0)   # 换l1看效果
                     else:
                         SIM_LOSS = Sf.new_tensor(0.0)
 
                     lam_now = float(m2.get_proxy_lambda()) if hasattr(m2, "get_proxy_lambda") else 1.0
-                    total = total + (sim_w * lam_now) * SIM_LOSS
+                    sim_lam_capped = min(lam_now, 0.5)
+                    total = total + (sim_w * sim_lam_capped) * SIM_LOSS
 
                 # For processor.py logging
                 loss_func._last = {
